@@ -10,6 +10,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 import smtplib
 from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QMessageBox,QDialog)
+import os
+import welcome
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -52,6 +54,7 @@ class Ui_MainWindow(object):
         self.textEdit.setObjectName("textEdit")
         self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit_2.setGeometry(QtCore.QRect(330, 400, 191, 27))
+        
         font = QtGui.QFont()
         font.setPointSize(12)
         self.textEdit_2.setFont(font)
@@ -62,6 +65,7 @@ class Ui_MainWindow(object):
         self.textEdit_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.textEdit_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.textEdit_2.setObjectName("textEdit_2")
+
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(278, 279, 59, 17))
         self.label_3.setText("")
@@ -103,7 +107,7 @@ class Ui_MainWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Ubuntu\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">><br /></p></body></html>"))
         self.textEdit_2.setPlaceholderText(_translate("MainWindow", "Password"))
         self.pushButton.setText(_translate("MainWindow", "Login"))
         self.pushButton_2.setText(_translate("MainWindow", "Forgot password..?"))
@@ -112,10 +116,12 @@ class Ui_MainWindow(object):
     def check_password(self):
         msg = QMessageBox()
         
-        if self.textEdit.toPlainText() == 'Chemdept' and self.textEdit_2.toPlainText() == '1234':
+        if self.textEdit.toPlainText().strip() == 'Chemdept' and self.textEdit_2.toPlainText().strip() == '1234':
             msg.setText('Success')
             msg.exec_()
             app.quit()
+            os.system('python3 welcome.py')
+            
         else:
             msg.setText('Incorrect Password')
             msg.exec_()
