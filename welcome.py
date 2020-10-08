@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import welcome_page_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -87,7 +88,6 @@ class Ui_MainWindow(object):
         self.pushButton_4.setText(_translate("MainWindow", "Experiment 4"))
         self.label_2.setText(_translate("MainWindow", "Estimation of copper by Iodometry"))
 
-import welcome_page_rc
 
 if __name__ == "__main__":
     import sys
