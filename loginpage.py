@@ -10,12 +10,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 import smtplib
 from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QLineEdit, QGridLayout, QMessageBox,QDialog)
-import os
-import welcome
+x = 0
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+        MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
         MainWindow.setEnabled(True)
         MainWindow.resize(821, 555)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
@@ -119,8 +119,10 @@ class Ui_MainWindow(object):
         if self.textEdit.toPlainText().strip() == 'Chemdept' and self.textEdit_2.toPlainText().strip() == '1234':
             msg.setText('Success')
             msg.exec_()
-            app.quit()
-            os.system('python3 welcome.py')
+            global x
+            x = 1
+            app.closeAllWindows()
+            
             
         else:
             msg.setText('Incorrect Password')
@@ -187,4 +189,8 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    sys.exit(app.exec_())
+    app.exec_()
+    if(x == 1):
+        import Vlab
+        Vlab.main(app)
+
