@@ -402,26 +402,26 @@ class Ui_ScrollArea(QtWidgets.QMainWindow):
         self.k_dash_trial2=self.k*self.m1_acetone_trial2*self.m1_hcl_trial2
         self.k_dash_trial3=self.k*self.m1_acetone_trial3*self.m1_hcl_trial3
         self.k_dash_trial4=self.k*self.m1_acetone_trial4*self.m1_hcl_trial4
-        t=0
+        self.t=0
         key=int(1)
         sys.stdout = open("lab_record.txt", "w+")
         print("trial 1")
         print("Time(sec)\tabsorbance")
-        while(t<1800):
-            a=0.3636*(self.m1_iodine_trial1-self.k_dash_trial1*t)
-            print(t,"\t",a)
+        while(self.t<1800):
+            self.a=0.3636*(self.m1_iodine_trial1-self.k_dash_trial1*t)
+            print(self.t,"\t",self.a)
             t=t+30
-        t=0
+        self.t=0
         print("trial 2")
         print("Time(sec)\tabsorbance")    
-        while(t<1800):
-            a=0.3636*(self.m1_iodine_trial2-self.k_dash_trial2*t)
-            print(t,"\t",a)
-            t=t+30
-        t=0
+        while(self.t<1800):
+            self.a=0.3636*(self.m1_iodine_trial2-self.k_dash_trial2*t)
+            print(self.t,"\t",a)
+            self.t=self.t+30
+        self.t=0
         print("trial 3")
         print("Time(sec)\tabsorbance")
-        while(t<1800):
+        while(self.t<1800):
             a=0.3636*(self.m1_iodine_trial3-self.k_dash_trial3*t)
             print(t,"\t",a)
             t=t+30
@@ -429,9 +429,9 @@ class Ui_ScrollArea(QtWidgets.QMainWindow):
         print("trial 4")
         print("Time(sec)\tabsorbance")
         while(t<1800):
-            a=0.3636*(self.m1_iodine_trial4-self.k_dash_trial4*t)
-            print(t,"\t",a)
-            t=t+30
+            self.a=0.3636*(self.m1_iodine_trial4-self.k_dash_trial4*t)
+            print(self.t,"\t",self.a)
+            self.t=self.t+30
         msgBox=QMessageBox()
         msgBox.setText("Sucessful, The record has been saved to your pc in the file folder")
         msgBox.exec()
