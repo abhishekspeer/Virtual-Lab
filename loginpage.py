@@ -164,9 +164,9 @@ class ForgotpasswordForm(QWidget):
 
 
     def forget_password(self):
-        sender='prakharpandey321@gmail.com'
+        sender='Department of Chemistry, BITS Pilani'
         receiver=self.lineEdit_email.text()
-        password='pandey123'
+        password='chem123'
         smtpserver=smtplib.SMTP("smtp.gmail.com",587)
         smtpserver.ehlo()
         smtpserver.starttls()
