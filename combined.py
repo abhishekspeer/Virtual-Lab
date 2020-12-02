@@ -114,8 +114,6 @@ class VlabWindow(QMainWindow):
             self.stacked_layout.addWidget(self.Exp1_widget)
             self.stacked_layout.setCurrentWidget(self.Exp1_widget)
         
-    def hello(self):
-        print("hello")
     def exp2(self):
         
         try:
@@ -130,7 +128,7 @@ class VlabWindow(QMainWindow):
         
         
         try:
-            print("Ok2 3rd")
+            #print("Ok2 3rd")
             self.stacked_layout.setCurrentWidget(self.Exp3_widget)
         except:
             self.Exp3Page()
@@ -138,10 +136,14 @@ class VlabWindow(QMainWindow):
             self.stacked_layout.setCurrentWidget(self.Exp3_widget)
         
     def exp4(self):
-        import os
-        os.system('exp4.py')
-        print("Ok1")
-        
+        try:
+            #print("Ok2 3rd")
+            self.stacked_layout.setCurrentWidget(self.Exp4_widget)
+        except:
+            self.Exp4_page()
+            self.stacked_layout.addWidget(self.Exp4_widget)
+            self.stacked_layout.setCurrentWidget(self.Exp4_widget)
+            
     def dash(self):
         self.stacked_layout.setCurrentWidget(self.DefPage_widget)
     
@@ -226,14 +228,14 @@ class VlabWindow(QMainWindow):
         self.movie2 = QMovie("an2.gif")
         
         #self.movie2.frameChanged.connect(self.repaint)
-        #print("insideClass1")
+        ##print("insideClass1")
         self.movie = QLabel()
         
         self.movie.setMovie(self.movie2)
         self.movie2.start()
-        #print("insideClass2")
+        ##print("insideClass2")
         
-        #print("insideClassMid")
+        ##print("insideClassMid")
         self.movieBox = QVBoxLayout()
         self.movieBox.addWidget(self.Title)
         self.movieBox.addWidget(self.movie)
@@ -336,9 +338,9 @@ class VlabWindow(QMainWindow):
         
         self.Exp1_widget = QWidget()
         self.Exp1_widget.setLayout(self.HomePage_lay)
-        #self.HomePage_widget.setGeometry(100,100,200,200)
+        self.Exp1_widget.setGeometry(100,100,200,200)
         self.Exp1_widget.setWindowTitle("Experiment 1")
-        print("insideClassend")
+        #print("insideClassend")
 
  
     def play(self):
@@ -379,11 +381,11 @@ class VlabWindow(QMainWindow):
     def getWeight(self):
         try:
             flo = float(self.WeightLine.text())
-            #print("ok")
+            ##print("ok")
             self.label4.setText("Processing.....")
-            #print("ok2")
+            ##print("ok2")
             self.weight.setText(str(flo))
-            #print("ok3")
+            ##print("ok3")
             self.VolLine.setReadOnly(False)
         except:
             self.WeightLine.setText("")
@@ -396,11 +398,11 @@ class VlabWindow(QMainWindow):
             init_bur = 50.00
             
             self.lab45.setText("Following are the burrette readings")
-            print("ok1")
+            #print("ok1")
             self.label5.setText("Initial Reading : "+str(init_bur)+ " ml")
-            print("ok2")
+            #print("ok2")
             self.tempLine.setText(str(f))
-            print("ok3")
+            #print("ok3")
             self.Unknown.setReadOnly(False)
             
         except:
@@ -445,7 +447,7 @@ class VlabWindow(QMainWindow):
             else:
                 self.correctLabel.setText("Incorrect ! Ans = "+str(an))
         except :
-            print("error in checkAns")
+            self.correctLabel.setText("Invalid !")
 
     def errorMessage(self):
         self.w = QMessageBox()
@@ -457,7 +459,7 @@ class VlabWindow(QMainWindow):
 
     def EXP_2page(self):
 
-        print("hello there")
+        #print("hello there")
         self.tabs2 = QTabWidget()
         self.tab12 = QWidget()
         self.tab22 = QWidget()
@@ -470,7 +472,7 @@ class VlabWindow(QMainWindow):
         self.tabs2.addTab(self.tab42, "Question Bank")
         #self.tabs2.addTab(self.tab52, "Back")
         
-        print("hello there")
+        #print("hello there")
         #self.tab2.setLayout(self.tab2Lay)
 
         self.l12 = QLabel()
@@ -517,7 +519,7 @@ class VlabWindow(QMainWindow):
         sizePolicy.setHeightForWidth(self.ScrollArea.sizePolicy().hasHeightForWidth())
         self.ScrollArea.setSizePolicy(sizePolicy)
 
-        print("hello there")
+        #print("hello there")
         
         self.ScrollArea.setFrameShape(QFrame.WinPanel)
         self.ScrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
@@ -792,13 +794,14 @@ class VlabWindow(QMainWindow):
         self.HExp2_lay.addWidget(self.backHome2)
         
         self.Exp2_widget = QWidget()
+        self.Exp2_widget.setGeometry(100,100,200,200)
         self.Exp2_widget.setLayout(self.HExp2_lay)
         #overall done
         
         self.Exp2_widget.setWindowTitle("Experiment 2")
 
     def retranslateUi(self):
-        print("hello there re")
+        #print("hello there re")
         _translate = QCoreApplication.translate
         self.ScrollArea.setWindowTitle(_translate("self.ScrollArea", "Experiment 2"))
         self.label_2.setText(_translate("self.ScrollArea", "Enter weight of Acetone(in grams)"))
@@ -889,32 +892,32 @@ class VlabWindow(QMainWindow):
         t=0
         key=int(1)
         sys.stdout = open("lab_record.txt", "w")
-        print("trial 1")
-        print("Time(sec)\tabsorbance")
+        #print("trial 1")
+        #print("Time(sec)\tabsorbance")
         while(t<1800):
             a=0.3636*(self.m1_iodine_trial1-self.k_dash_trial1*t)
-            print(t,"\t",a)
+            #print(t,"\t",a)
             t=t+30
         t=0
-        print("trial 2")
-        print("Time(sec)\tabsorbance")    
+        #print("trial 2")
+        #print("Time(sec)\tabsorbance")    
         while(t<1800):
             a=0.3636*(self.m1_iodine_trial2-self.k_dash_trial2*t)
-            print(t,"\t",a)
+            #print(t,"\t",a)
             t=t+30
         t=0
-        print("trial 3")
-        print("Time(sec)\tabsorbance")
+        #print("trial 3")
+        #print("Time(sec)\tabsorbance")
         while(t<1800):
             a=0.3636*(self.m1_iodine_trial3-self.k_dash_trial3*t)
-            print(t,"\t",a)
+            #print(t,"\t",a)
             t=t+30
         t=0
-        print("trial 4")
-        print("Time(sec)\tabsorbance")
+        #print("trial 4")
+        #print("Time(sec)\tabsorbance")
         while(t<1800):
             a=0.3636*(self.m1_iodine_trial4-self.k_dash_trial4*t)
-            print(t,"\t",a)
+            #print(t,"\t",a)
             t=t+30
         msgBox=QMessageBox()
         msgBox.setText("Sucessful, The record has been saved to your pc in the file folder")
@@ -954,7 +957,7 @@ class VlabWindow(QMainWindow):
         
 
     def Exp3Page(self):
-        #print("insideClass")
+        ##print("insideClass")
         self.tabs3 = QTabWidget()
         self.tab13 = QWidget()
         self.tab23 = QWidget()
@@ -966,7 +969,7 @@ class VlabWindow(QMainWindow):
         self.tabs3.addTab(self.tab33, "Video")
         self.tabs3.addTab(self.tab43, "Question Bank")
 
-        print("tabs added")
+        #print("tabs added")
         # Create first tab
         self.templab3 = QLabel("Room Temp :")
         self.tempLine3 = QLineEdit()
@@ -980,7 +983,7 @@ class VlabWindow(QMainWindow):
         
         self.tempBox3.setLayout(self.tempLay3)
         
-        print("temp box done")
+        #print("temp box done")
 
         self.botlab3 = QLabel("")
         self.label3 = QLabel("")
@@ -1002,7 +1005,7 @@ class VlabWindow(QMainWindow):
         self.tempLay23.addRow(self.next13)
         self.tempBox23.setLayout(self.tempLay23)
 
-        print("NaOh done")
+        #print("NaOh done")
         
         self.labe23 = QLabel("")
         self.VolLab23 = QLabel("")
@@ -1020,7 +1023,7 @@ class VlabWindow(QMainWindow):
         self.tempLay33.addRow(self.next23)
         
         self.tempBox33.setLayout(self.tempLay33)
-        print("HCl done")
+        #print("HCl done")
         
         self.labe33 = QLabel("")
         self.labe43= QLabel("")
@@ -1038,7 +1041,7 @@ class VlabWindow(QMainWindow):
         self.tempLay43.addRow(self.VolLast3, self.VolLine3)
               
         self.tempBox43.setLayout(self.tempLay43)
-        print("Last done")
+        #print("Last done")
         
 
         self.HomeLay3 = QVBoxLayout()
@@ -1047,7 +1050,7 @@ class VlabWindow(QMainWindow):
         for i in[self.tempBox3, self.tempBox23, self.tempBox33, self.tempBox43]:
             self.HomeLay3.addWidget(i)
             
-        print("widgets added")
+        #print("widgets added")
         
         self.Title3 = QLabel("DETERMINING THE EQUILIBRIUM CONSTANT")
         self.Title3.setAlignment(Qt.AlignCenter)
@@ -1057,9 +1060,9 @@ class VlabWindow(QMainWindow):
         
         self.movie3.setMovie(self.movie23)
         self.movie23.start()
-        #print("insideClass2")
+        ##print("insideClass2")
         
-        #print("insideClassMid")
+        ##print("insideClassMid")
         self.movieBox3 = QVBoxLayout()
         self.movieBox3.addWidget(self.Title3)
         self.movieBox3.addWidget(self.movie3)
@@ -1074,7 +1077,7 @@ class VlabWindow(QMainWindow):
         
         self.tab23.setLayout(self.pageBox3)
 
-        print("tab2 done")
+        #print("tab2 done")
         #self.tab1text = QPlainTextEdit()
         
         self.l13 = QLabel()
@@ -1104,7 +1107,7 @@ class VlabWindow(QMainWindow):
         self.tab1Lay23.addWidget(self.scrollAr3)
         
         self.tab13.setLayout(self.tab1Lay23)
-        print("tab1 done")        
+        #print("tab1 done")        
 
         self.tab3text3 = QPlainTextEdit()
         self.tab4text3 = QPlainTextEdit()
@@ -1161,14 +1164,14 @@ class VlabWindow(QMainWindow):
         self.HomePage_lay3 = QHBoxLayout()
         self.HomePage_lay3.addWidget(self.tabs3)
         self.HomePage_lay3.addWidget(self.backHome3)
-        print("back button added")
+        #print("back button added")
        
         self.Exp3_widget = QWidget()
         self.Exp3_widget.setLayout(self.HomePage_lay3)
-        #self.HomePage_widget.setGeometry(100,100,200,200)
+        self.Exp3_widget.setGeometry(100,100,200,200)
         self.Exp3_widget.setWindowTitle("Experiment 3")
 
-        #print("insideClassend")
+        ##print("insideClassend")
 
     def play3(self):
         
@@ -1207,12 +1210,12 @@ class VlabWindow(QMainWindow):
             self.labe33.setText("now we have following liquids\n5 mL  ~3N HCl Soluti, 4 mL pure ethanol\n1 mL glacial acetic acid, 5 mL pure ethyl acetate")
             self.labe43.setText("Titrate the whole contents of the bottles\nafter reaching equilibrium,\nwith standard NaOH solution using\n phenolphthalein indicator")
             self.VolLast3.setText("Vol of NaOH:")
-            print("funct-1.....")
+            #print("funct-1.....")
             n2 = float(self.N3NHcl3.text())
             n1 = float(self.N1Naoh3.text())
             v2 = 5.00
             v1 = n2*v2/n1
-            print("funct-2......")
+            #print("funct-2......")
             self.VolLine3.setText(str(v1))
             
         except:
@@ -1225,21 +1228,21 @@ class VlabWindow(QMainWindow):
         self.botlab3.setText("Solutions given :\n5ml ~3N HCl + 4ml C2H5OH+ 1 ml Acetic Acid")
         self.label3.setText("1.Standarizing ~1N NaOH\n with 0.3 Oxalic Acid")
         self.VolLab3.setText("Vol of NaOH :")
-        print("funct-1")
+        #print("funct-1")
         self.tempLine3.setReadOnly(True)
         n2 = 0.30
-        print("funct-2")
+        #print("funct-2")
         x = float(random.randint(-900, 900))
         n1 = 1.00 + float(x/float(1000))
         v2 = 25.00
-        print("funct-3")
+        #print("funct-3")
         if(n1 == 0):
-            print("divide by zero !!!")
+            n1 = 0.00001
         v1 = n2*v2/n1
-        print("funct-4")
+        #print("funct-4")
         self.vol1Naoh3.setText(str(v1))
         self.N1Naoh3.setText(str(n1))
-        print("funct-5")            
+        #print("funct-5")            
         #except:
         #self.vol1Naoh.setText("")
         #self.N1Naoh.setText("")
@@ -1260,14 +1263,454 @@ class VlabWindow(QMainWindow):
         except:
             self.volLabHcl3.setText("")
             self.errorMessage()
+
+    def Exp4_page(self):
+        #print("Initiated")
+        
+        self.tabs4 = QTabWidget()
+        self.tab14 = QWidget()
+        self.tab24 = QWidget()
+        self.tab34 = QWidget()
+        self.tab44 = QWidget()
+
+        self.tabs4.addTab(self.tab14,"Theory")
+        self.tabs4.addTab(self.tab24,"Perform")
+        self.tabs4.addTab(self.tab34, "Video")
+        self.tabs4.addTab(self.tab44, "Question Bank")
+
+        self.GiveLab = QLabel("Given Kcl Solution")
+        self.spin_b = QDoubleSpinBox()
+        self.spin_b.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
+        #self.spin_b.setValue("0.00")
+        self.spin_b.valueChanged.connect(self.NoteValue)
+        #print("initailized")
+        self.AdjustLabel = QLabel("Adjust the Conductance")
+        self.LineforDisplay = QLineEdit()
+        self.LineforDisplay.setReadOnly(True)
+        self.LineforDisplay.setText("0.00e-3ohm^-1cm^2")
+        self.DialCond = QDial()
+        self.DialCond.setRange(0, 10000)
+        self.DialCond.setNotchesVisible(False)
+        self.DialCond.valueChanged.connect(self.changedValue)
+        self.labTemp = QLabel("")
+        
+        self.formLay1 = QFormLayout()
+        self.formLay1.addRow(self.GiveLab, self.spin_b)
+        self.formLay1.addRow(self.AdjustLabel, self.labTemp)
+        self.formLay1.addRow(self.LineforDisplay, self.DialCond)
+        #print("okasofar")
+        self.widgetCond = QWidget()
+        self.widgetCond.setLayout(self.formLay1)
+        
+        self.nextBut4 = QPushButton("Next")
+        self.nextBut4.clicked.connect(self.setNext4)
+        self.grpbox14 = QGroupBox()
+        self.grpbox1lay4 = QVBoxLayout()
+        self.grpbox1lay4.addWidget(self.widgetCond)
+        self.grpbox1lay4.addWidget(self.nextBut4)
+        self.grpbox14.setLayout(self.grpbox1lay4)
+        #print("okasofar")
+        #self.throwLab = QLabel("Throw out the KCL Soln")
+        #self.WashLab = QLabel("Wash the Beaker and Electrode")
+        self.PipLabel = QLabel("")
+        self.makLab = QLabel("")
+        self.UseLab = QLabel("")
+        self.TheCon = QLabel("Concentration of stock:")
+        self.ConLine = QLineEdit()
+        self.nextBut24 = QPushButton("Next")
+        self.nextBut24.setEnabled(False)
+        self.nextBut24.clicked.connect(self.validate)
+        
+        self.grpbo2lay4 = QFormLayout()
+        #self.grpbo2lay4.addWidget(self.throwLab)
+        #self.grpbo2lay4.addWidget(self.WashLab)
+        self.grpbo2lay4.addRow(self.PipLabel)
+        self.grpbo2lay4.addRow(self.makLab)
+        #self.grpbo2lay4.addRow(self.UseLab)
+        self.grpbo2lay4.addRow(self.TheCon, self.ConLine)
+        self.grpbo2lay4.addRow(self.UseLab)
+        #self.grpbo2lay4.addWt(self.ConLine)
+        self.grpbo2lay4.addRow(self.nextBut24)
+
+        self.grpbo24 = QGroupBox()
+        self.grpbo24.setLayout(self.grpbo2lay4)
+        #print("okasofar")
+        self.maklab = QLabel("Make up the Volm to 100ml using Stock:")
+        self.rowTit_1 = QLabel("Conc")
+        self.rowTit_2 = QLabel("H2O")
+        self.rowTit_3 = QLabel("Stock")
+
+        self.n4 = QLabel("N/4")
+        self.n8 = QLabel("N/8")
+        self.n16 = QLabel("N/16")
+        self.n32 = QLabel("N/32")
+        self.n64 = QLabel("N/64")
+        #print("okasofar...")
+        self.spin_n4h = QDoubleSpinBox()
+        self.spin_n4n = QDoubleSpinBox()
+        self.spin_n8h = QDoubleSpinBox()
+        self.spin_n8n = QDoubleSpinBox()
+        self.spin_n16h = QDoubleSpinBox()
+        self.spin_n16n = QDoubleSpinBox()
+        self.spin_n32h = QDoubleSpinBox()
+        self.spin_n32n = QDoubleSpinBox()
+        self.spin_n64n = QDoubleSpinBox()
+        self.spin_n64h = QDoubleSpinBox()
+        #print("okasofar.....")
+        self.validateBut = QPushButton("Validate")
+        self.validateBut.clicked.connect(self.validate2)
+        
+        self.grpbo3lay4 = QGridLayout()
+        self.grpbo3lay4.addWidget(self.rowTit_1, 1, 0)
+        self.grpbo3lay4.addWidget(self.rowTit_2, 1, 1)
+        self.grpbo3lay4.addWidget(self.rowTit_3, 1, 2)
+        
+        #self.grpbo3lay4.addWidget(self.n4, self.spin_n4h, self.spin_n4n)
+        self.grpbo3lay4.addWidget(self.n4, 2, 0)
+        self.grpbo3lay4.addWidget(self.spin_n4h, 2, 1)
+        self.grpbo3lay4.addWidget(self.spin_n4n, 2, 2)
+
+        self.grpbo3lay4.addWidget(self.n8, 3, 0)
+        self.grpbo3lay4.addWidget(self.spin_n8h, 3, 1)
+        self.grpbo3lay4.addWidget(self.spin_n8n, 3, 2)
+
+        self.grpbo3lay4.addWidget(self.n16, 4, 0)
+        self.grpbo3lay4.addWidget(self.spin_n16h, 4, 1)
+        self.grpbo3lay4.addWidget(self.spin_n16n, 4, 2)
+
+        self.grpbo3lay4.addWidget(self.n32, 5, 0)
+        self.grpbo3lay4.addWidget(self.spin_n32h, 5, 1)
+        self.grpbo3lay4.addWidget(self.spin_n32n, 5, 2)
+
+        self.grpbo3lay4.addWidget(self.n64, 6, 0)
+        self.grpbo3lay4.addWidget(self.spin_n64h, 6, 1)
+        self.grpbo3lay4.addWidget(self.spin_n64n, 6, 2)
+        
+
+        #self.grpbo3lay4.addRow(self.n8, self.spin_n8h, self.spin_n8n)
+        #self.grpbo3lay4.addRow(self.n16, self.spin_n16h, self.spin_n16n)
+        #self.grpbo3lay4.addRow(self.n32, self.spin_n32h, self.spin_n32n)
+
+        self.grpbo34 = QGroupBox()
+        self.temp1 = QGroupBox()
+        self.temp1.setLayout(self.grpbo3lay4)
+        
+        self.grms34 = QVBoxLayout()
+        self.grms34.addWidget(self.maklab)
+        self.grms34.addWidget(self.temp1)
+        self.grms34.addWidget(self.validateBut)
+        
+        self.grpbo34.setLayout(self.grms34)
+        #print("okasofar4")
+        self.marklab = QLabel("Note Conductance (in ohm^-1 cm^2):")
+
+        self.markn4 = QLabel("N/4")
+        self.markn8 = QLabel("N/8")
+        self.markn16 = QLabel("N/16")
+        self.markn32 = QLabel("N/32")
+        self.markn64 = QLabel("N/64")
+
+        self.note_n4n = QLineEdit()
+        self.note_n4n.setReadOnly(True)
+        self.note_n8n = QLineEdit()
+        self.note_n8n.setReadOnly(True)
+        self.note_n16n = QLineEdit()
+        self.note_n16n.setReadOnly(True)
+        self.note_n32n = QLineEdit()
+        self.note_n32n.setReadOnly(True)
+        self.note_n64n = QLineEdit()
+        self.note_n64n.setReadOnly(True)
+        
+        self.grpbo4lay = QFormLayout()
+
+        self.grpbo4lay.addRow(self.marklab)
+
+        self.grpbo4grid = QGridLayout()
+        self.grpbo4grid.addWidget(self.markn4, 0, 0)
+        self.grpbo4grid.addWidget(self.note_n4n, 0, 1)
+        self.grpbo4grid.addWidget(self.markn8, 0, 2)
+        self.grpbo4grid.addWidget(self.note_n8n, 0, 3)
+        self.grpbo4grid.addWidget(self.markn16, 1, 0)
+        self.grpbo4grid.addWidget(self.note_n16n, 1, 1)
+        self.grpbo4grid.addWidget(self.markn32, 1, 2)
+        self.grpbo4grid.addWidget(self.note_n32n, 1, 3)
+        self.grpbo4grid.addWidget(self.markn64, 2, 0)
+        self.grpbo4grid.addWidget(self.note_n64n, 2, 1)
+
+        self.grpbo4gridBox = QWidget()
+        self.grpbo4gridBox.setLayout(self.grpbo4grid)
+
+        self.grpbo4lay.addRow(self.grpbo4gridBox)
+
+        self.grpbo44 = QGroupBox()
+        self.grpbo44.setLayout(self.grpbo4lay)
+        ########
+        #print("okasofar5")
+
+        self.side1box4 = QGroupBox()
+        self.side1lay4 = QVBoxLayout()
+
+        self.side1lay4.addWidget(self.grpbox14)
+        self.side1lay4.addWidget(self.grpbo24)
+        self.side1lay4.addWidget(self.grpbo34)
+        self.side1lay4.addWidget(self.grpbo44)
+        
+        self.side1box4.setLayout(self.side1lay4)
+        #print("OnesideDone")
+
+        self.Titlelab4 = QLabel("DISSOCIATION CONSTANT")
+        self.Titlelab4.setAlignment(Qt.AlignCenter)
+
+        self.ani4 = QMovie("discon2.gif")
+        self.aniLab4 = QLabel()
+        self.aniLab4.setMovie(self.ani4)
+        self.ani4.start()
+
+        self.side2lay4 = QVBoxLayout()
+        self.side2lay4.addWidget(self.Titlelab4)
+        self.side2lay4.addWidget(self.aniLab4)
+
+        self.side2wid4 = QWidget()
+        self.side2wid4.setLayout(self.side2lay4)
+
+        self.Page4lay = QHBoxLayout()
+        self.Page4lay.addWidget(self.side1box4)
+        self.Page4lay.addWidget(self.side2wid4)
+
+        self.tab24.setLayout(self.Page4lay)
+        #print("tab2done")
+        self.mediaPlayer4 = QMediaPlayer(None, QMediaPlayer.VideoSurface)
+        self.playButton4 = QPushButton()
+        self.playButton4.setEnabled(True) #default is on False, will not play video
+        self.playButton4.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay)) #How the button looks
+        self.playButton4.clicked.connect(self.play4)  #when clicked, should play
+ 
+        self.positionSlider4 = QSlider(Qt.Horizontal) #the video slider
+        self.positionSlider4.setRange(0, 0) #setting the range of the slider
+        self.positionSlider4.sliderMoved.connect(self.setPosition4)
+ 
+        self.errorLabel4 = QLabel()
+        self.errorLabel4.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+ 
+        # Create a widget for window contents
+ 
+        # Create layouts to place inside widget
+        self.videoWidget4 = QVideoWidget()
+        self.controlLayout4 = QHBoxLayout()
+        self.controlLayout4.setContentsMargins(0, 0, 0, 0)
+        self.controlLayout4.addWidget(self.playButton4)
+        self.controlLayout4.addWidget(self.positionSlider4)
+ 
+        self.layout4 = QVBoxLayout()
+        self.layout4.addWidget(self.videoWidget4)
+        self.layout4.addLayout(self.controlLayout4)
+        self.layout4.addWidget(self.errorLabel4)
+ 
+        # Set widget to contain window contents
+        self.Video_widget4 = QWidget()
+        self.Video_widget4.setLayout(self.layout4)
+ 
+        self.mediaPlayer4.setVideoOutput(self.videoWidget4)
+        self.mediaPlayer4.stateChanged.connect(self.mediaStateChanged4)
+        self.mediaPlayer4.positionChanged.connect(self.positionChanged4)
+        self.mediaPlayer4.durationChanged.connect(self.durationChanged4)
+        self.mediaPlayer4.error.connect(self.handleError4)
+        self.loaded4 = 0
+
+
+        self.l14 = QLabel()
+        self.l14.setPixmap(QPixmap("discon-1.jpg"))
+        self.l14.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.l14.setAlignment(Qt.AlignCenter)
+        
+        self.l24 = QLabel()
+        self.l24.setPixmap(QPixmap("discon-2.jpg"))
+        self.l24.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.l24.setAlignment(Qt.AlignCenter)
+    
+        self.l34 = QLabel()
+        self.l34.setPixmap(QPixmap("discon-3.jpg"))
+        self.l34.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.l34.setAlignment(Qt.AlignCenter)
+  
+        self.l44 = QLabel()
+        self.l44.setPixmap(QPixmap("discon-4.jpg"))
+        self.l44.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.l44.setAlignment(Qt.AlignCenter)
+
+        self.tab1Lay4 = QVBoxLayout()
+        self.tab1Lay4.addWidget(self.l14)
+        self.tab1Lay4.addWidget(self.l24)
+        self.tab1Lay4.addWidget(self.l34)
+        self.tab1Lay4.addWidget(self.l44)
+
+        self.scrollWidget4 = QWidget()
+        self.scrollWidget4.setLayout(self.tab1Lay4)
+        
+        self.scrollAr4 = QScrollArea()
+        self.scrollAr4.setWidget(self.scrollWidget4)
+        
+        self.tab1Lay24 = QVBoxLayout()
+        self.tab1Lay24.addWidget(self.scrollAr4)
+        
+        self.tab14.setLayout(self.tab1Lay24)
+        
+        
+        self.tab3Lay4 = QVBoxLayout()
+        self.tab3Lay4.addWidget(self.Video_widget4)
+        self.tab34.setLayout(self.tab3Lay4)
+
+        self.backHome4 = QPushButton("Back")
+        self.backHome4.clicked.connect(self.goBackToDef)
+        self.HomePage_lay4 = QHBoxLayout()
+        self.HomePage_lay4.addWidget(self.tabs4)
+        self.HomePage_lay4.addWidget(self.backHome4)
+        #print("back button added")
+       
+        self.Exp4_widget = QWidget()
+        self.Exp4_widget.setLayout(self.HomePage_lay4)
+        self.Exp4_widget.setGeometry(100,100,200,200)
+        self.Exp4_widget.setWindowTitle("Experiment 4")
+
+        ##print("insideClassend")
+
+    def setNext4(self):
+        val = float(self.DialCond.value())/100
+        if(val != 12.88):
+            self.errorMessage()
+            return
+        
+        self.PipLabel.setText("Pipette out 50 ml 1N Acetic Acid")
+        self.makLab.setText("Make up the volm to 100 ml")
+        #self.UseLab = QLabel("Use Conductivity Water !!")
+        self.TheCon.setText("Concentration of stock:")
+        self.nextBut24.setEnabled(True)
+
+    def play4(self):
+        
+        fileName = "exp4.mp4"
+        if self.loaded4 == 0:
+            self.mediaPlayer4.setMedia(QMediaContent(QUrl.fromLocalFile(fileName)))
+            self.playButton4.setEnabled(True)
+            self.loaded4 = 1
+            
+        if self.mediaPlayer4.state() == QMediaPlayer.PlayingState:
+            self.mediaPlayer4.pause()
+        else:
+            self.mediaPlayer4.play()
+ 
+    def mediaStateChanged4(self, state):
+        if self.mediaPlayer4.state() == QMediaPlayer.PlayingState:
+            self.playButton4.setIcon(self.style().standardIcon(QStyle.SP_MediaPause))
+        else:
+            self.playButton4.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay))
+ 
+    def positionChanged4(self, position):
+        self.positionSlider4.setValue(position)
+ 
+    def durationChanged4(self, duration):
+        self.positionSlider4.setRange(0, duration)
+ 
+    def setPosition4(self, position):
+        self.mediaPlayer4.setPosition(position)
+ 
+    def handleError4(self):
+        self.playButton4.setEnabled(False)
+        self.errorLabel4.setText("Error: " + self.mediaPlayer4.errorString())
+
+    def NoteValue(self):
+
+        condval = self.spin_b.value()
+
+    def changedValue(self):
+        val = float(self.DialCond.value())/100
+        self.LineforDisplay.setText(str(val)+ "e-3omh^-1cm^2")
+
+    def validate(self):
+
+        try:
+            k = float(self.ConLine.text())
+            if(k<0.45 or k>0.55):
+               self.UseLab.setText("Wrong ! it's 0.5. Anyways continue")
+            else :
+                self.UseLab.setText("Correct ! it's 0.5.")
+        except:
+            pass
+    def validate2(self):
+        
+        for i, j in zip([self.spin_n4h , self.spin_n8h,self.spin_n16h, self.spin_n32h, self.spin_n64h],
+                     [self.spin_n4n, self.spin_n8n, self.spin_n16n, self.spin_n32n, self.spin_n64n]):
+            try:
+                temp = float(i.value()) + float(j.value())
+                
+                if temp != 100 :
+                    self.errorMessage()
+                    return
+            except:
+                self.errorMessage()
+                return
+        self.CalculateConductivity()
+
+    def CalculateConductivity(self):
+
+        import math
+        
+        Ka = 1.75
+        k = float(random.randint(100, 9999))
+        error = k/10000
+        Ka = Ka + error
+        Ka = Ka/100000
+        c1 = 0.00
+        c2 = 0.00
+        c3 = 0.00
+        c4 = 0.00
+        c5 = 0.00
+        for i, j, z in zip([self.spin_n4h , self.spin_n8h,self.spin_n16h, self.spin_n32h, self.spin_n64h],
+                     [self.spin_n4n, self.spin_n8n, self.spin_n16n, self.spin_n32n, self.spin_n64n],
+                           [c1, c2, c3, c4, c5]):
+            try:
+                z = (float(self.ConLine.text())*float(j.value()))/(float(i.value()) + float(j.value()))
+                
+            except:
+                self.errorMessage()
+                return
+                
+        
+        c1 = c1 + (float(random.randint(10, 200))/1000)
+        c2 = c2 + (float(random.randint(10, 200))/1000)
+        c3 = c3 + (float(random.randint(10, 200))/1000)
+        c4 = c4 + (float(random.randint(10, 200))/1000)
+        c5 = c5 + (float(random.randint(10, 200))/1000)
+        alpha1 = (math.sqrt((Ka**2) + (4*c1*Ka))-Ka)/(2*c1)
+        alpha2 = (math.sqrt((Ka**2) + (4*c2*Ka))-Ka)/(2*c2)
+        alpha3 = (math.sqrt((Ka**2) + (4*c3*Ka))-Ka)/(2*c3)
+        alpha4 = (math.sqrt((Ka**2) + (4*c4*Ka))-Ka)/(2*c4)
+        alpha5 = (math.sqrt((Ka**2) + (4*c5*Ka))-Ka)/(2*c5)
+
+        kappa1 = "%.3f" %(390.8*alpha1*c1)
+        kappa2 = "%.3f" %(390.8*alpha2*c2)
+        kappa3 = "%.3f" %(390.8*alpha3*c3)
+        kappa4 = "%.3f" %(390.8*alpha4*c4)
+        kappa5 = "%.3f" %(390.8*alpha5*c5)
+
+        
+        
+        self.note_n4n.setText(str(kappa1)+"e-3")
+        self.note_n8n.setText(str(kappa2)+"e-3")
+        self.note_n16n.setText(str(kappa3)+"e-3")
+        self.note_n32n.setText(str(kappa4)+"e-3")
+        self.note_n64n.setText(str(kappa5)+"e-3")
+        
+        
     
 def main(app, user_dets):
     Vlab = app
-    print(user_dets)
+    #print(user_dets)
     global remark
     remark = user_dets
-    print(remark)
+    #print(remark)
     VlabWind = VlabWindow(Vlab)
     VlabWind.show()
     VlabWind.raise_()
     Vlab.exec_()
+main(QApplication(sys.argv), ["utk", "good", "bad", "good"])
