@@ -12,16 +12,7 @@ from base64 import urlsafe_b64encode
 from email.mime.text import MIMEText
 
 credentials = {
-  "type": "service_account",
-  "project_id": "vlab-314021",
-  "private_key_id": "3112847de98e01ed2a412efebe604d4f8b71b85a",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDzOWOYCYrscL0y\no/YgzlwVA3g4BUJ1196r13W6g6P3rfDSN1NOi7eAFZqY1FM4N3QYa/pvpe73YMUK\neRPm3jj0Cepe7Dvcc2YdabI8QRVX9uIUxLLcEJE7IqCdtZJT1QPY67yCqL03B/pz\n+MJd7fYtlnUeloGkglNfkBIStWvB1KaC7tFYtvbjyNWB+iUGLMmIdgXZftX21Arm\nORbFxeYjDXdCiqLlZsflIhw2S+K3spYwCQycpcMZJw8cV/yBcbvxNXlQW28z9t06\nRD9GEs7tV7bKBQMdZ0wsBRH90o73D1MM9fSJu7JIPFwMeIO8tRrpsPnOdryeJkkB\nLtBV4xjxAgMBAAECggEADzuaZbS/SySabNgA+7gA414GwvdtXKUK8Jc7a9V/yOzP\nZtMJOCOe9/oiZwzxM1Whwz/L/P8W8s5QOOIxYWWsingugghojVt62z+55nUrCYnQ\nSf2xt/+foOT/yzDKe86dAZJuCX7Y7t/kiyvavHhBUUSZjDNf5jY1U4hZ4WsUVxzD\nmWJXKb5ZE9BSFrLrgQ2N3GtfzgeB0rZ2+UHHT8N4GOry/WhKEG7msyaEseMY8OUs\nFGvzYQpqpt7NvGOWtzJVnJi5k2xgcCyVoSgNv0A9+1sWDb9TLfSyDMmbfiUgwzuH\nc9TW80Y7OfomIpfHfMIK+BqhAsh1SXG3Oylxk87jcwKBgQD6H/ALG1GKBhQp+Mkc\nG0FgfLOYDr1hGcfa5+G9AWTlLxVaayaEgazDzI/YHFcqdvRd23d/2HtDxK6XLiTw\nihseFtg5zirK8lw3dPRMxGe7jIqXIdj8vfrwRtX3cH5DAEq3PklbgYxItMjmsacE\nKcg92RiDomZxWeHWkPhfRlfClwKBgQD47/TawSdAwoy6UQa8JCQUUTHHDOFWScXS\nZIUIZu4oMO77K5Lt+eLMTWK31fwnDf9eHv2Gl5VzbjOC3U7TiMCQon2Ll2YiDfW4\nh33bqO5j5HYXV0D0bHdt6+EHi2Nla3nwg+elJ+ulkD8nWGQoYKcWf7vZiK+VhmFI\nUIx3iBPZtwKBgG3f2721SXNdSjxJymZrXqO5A9eXGf/uqEl0NUimtSCsNzAaA7iP\nkkoMsV+Yy32e9afJQcxKV5OkcaF9psJ3mIP2OxPhihDOuE2wNaUHXh4YFcVgHAai\nmfo008c3hm9+UFQAq47j8LD7oYkdnyWICSuKE2e3zlKazkdINaL8ro6PAoGAFAWA\npQN5+7xqAyY3K3Sgrj2likPf78e5MGXDSVy19OeSoQLtK1S4yAPFV9HPGPkIO/K0\nI1oXvBP18qWIDH1oN3nKLSr9HOoQhEnpdnxMyB383X24DLCYnm+lRq0QTnzpbs29\nGMxwKH3Eho6WZ6T2a1nUqvdSX+1R77YCxi5colsCgYAWhdU0KINNXwH50QiPtJs+\nt3dbHIedce0s44d4Gv1NFsEshXjPROoHMcFWOyyJh7vHtm9BQ6yscX05K7C4h90N\nDpykXxSAPv/ewg2QVdaknxWIvTVbc2B3AbuTIMuGvSAMWhmvZ0jJwlV707TgMJI3\nWEnzWS+OwEC/oWLAu9elmQ==\n-----END PRIVATE KEY-----\n",
-  "client_email": "vlaboratory@vlab-314021.iam.gserviceaccount.com",
-  "client_id": "115643789993264963046",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vlaboratory%40vlab-314021.iam.gserviceaccount.com"
+  <creds to acccount> ### Change this and put credentials
 }
 
 scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets', 
@@ -33,9 +24,9 @@ creds = ServiceAccountCredentials.from_json_keyfile_dict(credentials,scope)
 #creds = ServiceAccountCredentials.service_account_from_dict(credentials, scope)
 client = gspread.authorize(creds)
 try:
-        sheet = client.open("Creds_Vlab").sheet1
+        sheet = client.open(<"sheet name">).sheet1 ### Put name of the sheet to accesss
 except:
-        sheet = client.open("LOP Database").sheet1
+        sheet = client.open(<"sheet name 2">).sheet1 ### Put name of the sheet to accesss
 def loginverify(username,password):
         try:
                 #data = sheet.get_all_records() 
@@ -63,7 +54,7 @@ def loginverify(username,password):
 
 def SUBMITDATA(username, exp, data, k):
         try:
-                EXP = client.open("LOP Database")
+                EXP = client.open(<"name of the sheet here">)
                 temp = EXP.get_worksheet(exp)
                 if(temp.cell(k, 2).value == username):
                         
