@@ -205,8 +205,8 @@ class ForgotpasswordForm(QWidget):
                 return
 
             else:
-                sender='vlab.noreply@gmail.com'
-                password='sbokdrslmdfecbxs'
+                sender='<email id here with smtp enabled or app access>' ####Put email id here
+                password='<PASS WORD HERE>' ### put password here
                 smtpserver=smtplib.SMTP("smtp.gmail.com",587)
                 smtpserver.ehlo()
                 smtpserver.starttls()
