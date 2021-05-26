@@ -23,12 +23,13 @@ class Ui_MainWindow(object):
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("background-image: url(:/newPrefix/login-form-design-02.jpg);\n"
 "color:white;\n"
+"background-repeat: no-repeat;\n"
 "")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(270, 120, 310, 41))
-        MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
+        #MainWindow.setWindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
         font = QtGui.QFont()
         font.setPointSize(17)
         self.label.setFont(font)
@@ -168,11 +169,12 @@ class ForgotpasswordForm(QWidget):
         self.lineEdit_email=QLineEdit()
         self.lineEdit_email.setFont(QtGui.QFont('Times', 12))
         self.lineEdit_email.setPlaceholderText('Please enter your userid')
+        self.lineEdit_email.returnPressed.connect(self.forget_password)
         layout.addWidget(self.lineEdit_email, 3, 1, 1, 3)
 
         self.lineEdit_user=QLineEdit()
         self.lineEdit_user.setPlaceholderText('Please enter your username')
-        self.lineEdit_user.returnPressed.connect(self.forget_password)
+        
         #layout.addWidget(self.lineEdit_user, 4, 1, 1, 3)
         
         forgot_login = QPushButton('Send password')
@@ -205,8 +207,8 @@ class ForgotpasswordForm(QWidget):
                 return
 
             else:
-                sender='<email id here with smtp enabled or app access>' ####Put email id here
-                password='<PASS WORD HERE>' ### put password here
+                sender='vlab.noreply@gmail.com'
+                password='sbokdrslmdfecbxs'
                 smtpserver=smtplib.SMTP("smtp.gmail.com",587)
                 smtpserver.ehlo()
                 smtpserver.starttls()
@@ -243,4 +245,6 @@ if __name__ == "__main__":
     app.exec_()
     if(x == 1):
         import testVlab
-        testVlab.main(app, user_dets, k, sheets)
+        testVlab.main(1, user_dets, k, sheets)
+        print("returned to main script. Report a Bug")
+        sys.exit(1)
