@@ -93,7 +93,7 @@ class VlabWindow(QMainWindow):
         self.TEXT_BOX_H.appendPlainText("USER_ID_NO :" + remark[1])
         flag2 = 0
         for i in remark:
-            if(flag2 < 3):
+            if(flag2 < 4):
                 flag2 +=1
                 continue
             self.TEXT_BOX_H.appendPlainText("Experiment "+str(flag)+" :>" + i)
@@ -465,7 +465,7 @@ class VlabWindow(QMainWindow):
             
             DATA_Misc = ["exp4", remark[1], str(datetime.now())]
             #print("DATA GEN")
-            success = sheets.UPLOADONDRIVE2(DATA_Misc, dataGEN, dataIN, labels, folder_id = "1ol0BapLcADrGTue0GaeRMVWvR24gtZG8")
+            success = sheets.UPLOADONDRIVE2(DATA_Misc, dataGEN, dataIN, labels, folder_id = 4)
             if(success == 0):
                 #remove(str(remark[1])+".txt")
                 self.MESSAGE(True)
@@ -504,7 +504,7 @@ class VlabWindow(QMainWindow):
                       str(self.eacLine3.text()+"-->"+self.eacLine5.text()),
                       self.KcLine.text()]
             
-            success = sheets.UPLOADONDRIVE2(DATA_Misc, dataGEN, dataIN, labels, folder_id = "10jFs1ULt9oV12Wkrzpjsqmi2WoFmhyoJ")
+            success = sheets.UPLOADONDRIVE2(DATA_Misc, dataGEN, dataIN, labels, folder_id = 3)
             if(success == 0):
                 #remove(str(remark[1])+".txt")
                 self.MESSAGE(True)
@@ -530,7 +530,7 @@ class VlabWindow(QMainWindow):
                   self.StHyLine, self.VolUnLine, self.volLine2, self.StUnLine]:
             dataIN.append(i.text())
         
-        success = sheets.UPLOADONDRIVE2(DATA_Misc, dataGEN, dataIN, labels, folder_id = "14JBp8lEKFnnB5SIRUJ6vHnlPhYbDdwIH")
+        success = sheets.UPLOADONDRIVE2(DATA_Misc, dataGEN, dataIN, labels, folder_id = 1)
         if(success == 0):
             self.MESSAGE(True)
         else:
@@ -549,7 +549,7 @@ class VlabWindow(QMainWindow):
             
     def SUBMIT(self, exp, data, DATA_Misc, labels, dataIN, dataGEN):
         success = sheets.SUBMITDATA(remark[1], exp, data, k)
-        success = sheets.UPLOADONDRIVE2(DATA_Misc, dataGEN, dataIN, labels, folder_id = "1Zjy5nqdKGE3uECeICN3w5DZkz2p9gte9")
+        success = sheets.UPLOADONDRIVE2(DATA_Misc, dataGEN, dataIN, labels, folder_id = 2)
         if(success == 0):
             self.MESSAGE(True)
         else:

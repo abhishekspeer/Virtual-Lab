@@ -64,7 +64,7 @@ class Ui_MainWindow(object):
         self.textEdit_2.setFrame(True)
         self.textEdit_2.setFrame(True)
         self.textEdit_2.setObjectName("textEdit_2")
-        self.textEdit_2.editingFinished.connect(self.check_password)
+        #self.textEdit_2.editingFinished.connect(self.check_password)
         self.textEdit_2.returnPressed.connect(self.check_password)
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(278, 279, 59, 17))
@@ -109,6 +109,11 @@ class Ui_MainWindow(object):
         log_name = self.textEdit.text().strip()
         log_pass = self.textEdit_2.text().strip()
         if(log_name == '' or log_pass == ''):
+            msg = QMessageBox()
+            msg.setWindowTitle("No details")
+            msg.setText("Missing password/userid\nEnter correct details")
+            msg.setIcon(QMessageBox.Warning)
+            msg.exec_()
             return
         global k
         global user_dets
@@ -208,14 +213,14 @@ class ForgotpasswordForm(QWidget):
 
             else:
                 sender='vlab.noreply@gmail.com'
-                password='PASSWORD HERE'
+                password='sbokdrslmdfecbxs'
                 smtpserver=smtplib.SMTP("smtp.gmail.com",587)
                 smtpserver.ehlo()
                 smtpserver.starttls()
                 smtpserver.ehlo
                 smtpserver.login(sender,password)
                 msg='Subject:Password for VLab\n'+'Hi '+self.lineEdit_name.text()+'\n\nCredentials for Vlab:\nUsername: '+user_details[0]+'\nPassword: '+user_details[1]+'\n\n Regards\nDepartment of chemistry'
-                sent = smtpserver.sendmail(sender,user_details[0],msg)
+                sent = smtpserver.sendmail(sender,user_details[2],msg)
                 if(sent == {}):
                     msg=QMessageBox()
                     msg.setWindowTitle("Success")

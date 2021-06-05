@@ -269,11 +269,23 @@ class Exp3_class(QTabWidget):
         self.SUBGro.setLayout(self.SUBLay)
         self.SUBGro.setMaximumWidth(142)
         
+        self.InstructLAB1 = QLabel("1.LEFT UPPER HALF\nIS SOLUTION RACK\n\n2.LEFT LOWER HALF\nIS FOR EQUM.\n\n3.RIGTH SECTION\nIS FOR TITRATION")
+        #self.InstructLAB1.setAlignment(Qt.AlignCenter)
+        
+        self.Instruct = QGroupBox()
+        self.InstructLay = QVBoxLayout()
+        self.InstructLay.addWidget(self.InstructLAB1) 
+        #self.InstructLay.addWidget()
+        self.Instruct.setLayout(self.InstructLay)
+        self.Instruct.setMaximumWidth(171)
+        
         self.EquiLAY = QHBoxLayout()
         self.EquiLAY.addWidget(self.DropBox)
         self.EquiLAY.addWidget(self.TestMiscW)
         self.EquiLAY.addWidget(self.RetLAYW)
         self.EquiLAY.addWidget(self.SUBGro)
+        self.EquiLAY.addWidget(self.Instruct)
+        
         self.EquiLAYW = QWidget()
         self.EquiLAYW.setLayout(self.EquiLAY)
         
@@ -292,9 +304,9 @@ class Exp3_class(QTabWidget):
         self.FlaDrop.setStyleSheet("QLineEdit {color: black; background-image : url(media/flaskEm2.png); background-repeat: no-repeat;background-position: 0% 0%;}")
 
         self.movie = QSlider(Qt.Vertical)
-        self.movie.setRange(0, 50)
+        self.movie.setRange(-5000, 0)
         self.movie.setAutoFillBackground(True)
-        self.movie.setValue(0)
+        self.movie.setValue(-5000)
         self.movie.setFocusPolicy(Qt.NoFocus)
         self.movie.setTickPosition(QSlider.TicksBothSides)
         self.movie.setTickInterval(1)
@@ -315,8 +327,8 @@ class Exp3_class(QTabWidget):
 
         self.loadKI = QPushButton("Add Indicator")
         #self.loadKI.clicked.connect(self.changeFlask)
-        self.loadKSCN = QPushButton("Load NaOH")
-        self.loadKSCN.clicked.connect(self.LoadHypo)
+        self.loadNAOH = QPushButton("Load NaOH")
+        self.loadNAOH.clicked.connect(self.LoadHypo)
         
         self.loadStart = QPushButton("START")
         self.loadStart.clicked.connect(self.START2)
@@ -363,7 +375,7 @@ class Exp3_class(QTabWidget):
         self.loadStop.setEnabled(False)
         self.loadKI.setEnabled(False)
         self.loadKIFLAG = False
-        self.LOADMARK = 0
+        self.LOADMARK = -5000
 
         self.eacCon = 0
         self.eacVol = 0
@@ -460,12 +472,13 @@ class Exp3_class(QTabWidget):
                 elif(self.FlaDrop.name() == " Phenolphthalein "):
                     self.loadKIFLAG = True
                         
-                elif(self.FlaDrop.name() == " HCl " or self.FlaDrop.name() == " Oxalic Acid "):
+                elif(self.FlaDrop.col() == 1):
                     #if(self.LoadedINFLASK == False):
                     self.FlaDrop.setStyleSheet("QLineEdit {color: black; background-image : url(media/flaskB2.png); background-repeat: no-repeat;background-position: 0% 0%;}")
                     self.LoadedINFLASK = True
-                    self.volFlask = self.FlaDrop.vol()
-                    self.conFlask = self.FlaDrop.con()
+                    self.volFlask = self.FlaDrop.vol()*self.FlaDrop.con()
+                    self.conFlask += self.volFlask
+                    #print(self.conFlask)
                        
                     '''   
                     else :
@@ -481,32 +494,43 @@ class Exp3_class(QTabWidget):
         except:
             self.UNKNOWNERROR = "Updating Flask parameters"
             self.errorMessage()
+            self.FlaDrop.setText("Flask")
         
-    def update3(self):
+    def update3(self):	
         try:
+            if(self.TitDrop.text() == "Bur"):
+        	    return
             if(self.resumeFlag):
                 if(self.TitDrop.name() == " NaOH "):
-                    self.LoadHypo()
-                    self.TitDrop.setText("Bur")
-                    return
-            if(self.TitDrop.text() == "Bur"):
-                return
+                   try:
+                   		self.burVol = self.TitDrop.vol()
+                   		self.movie.setValue((self.burVol*100)-5000)
+                   		self.LOADMARK = (self.burVol*100)-5000
+                   		self.marker = 0
+                   		if(self.resumeFlag):
+                   			self.resumeFlag = False
+                   except:
+                        self.UNKNOWNERROR = "Refilling Burette through drag and drop"
+                        self.errorMessage()
+                   self.TitDrop.setText("Bur")
+                   return
+                   
+                else:
+                   self.errorFlag = 10
+                   self.errorMessage()
+                   self.TitDrop.setText("Bur") 
+                   return         
+
             if(self.start):
                 self.errorFlag = 2
                 self.errorMessage()
             else:
                 if(self.TitDrop.name() == " NaOH "):
-                    '''
-                    if(self.burFlag):
-                        self.errorFlag = 8
-                        self.errorMessage()
-                    else:
-                    '''
                     
                     self.burCon = self.TitDrop.con()
                     self.burVol = self.TitDrop.vol()
-                    self.movie.setValue(self.burVol)
-                    self.LOADMARK = self.burVol
+                    self.movie.setValue((self.burVol*100)-5000)
+                    self.LOADMARK = (self.burVol*100)-5000
                     self.burFlag = True
 
                 else:
@@ -516,6 +540,7 @@ class Exp3_class(QTabWidget):
         except:
             self.UNKNOWNERROR = "Updating Burette parameters"
             self.errorMessage()
+            self.TitDrop.setText("Bur")
     def RESET2(self):
         try:
             self.timerTrials.stop()
@@ -526,15 +551,18 @@ class Exp3_class(QTabWidget):
             self.burCon = 0
             self.burVol = 0
             self.LoadedINFLASK = False
+            self.volumeDown = 0
+            self.marker = 0
+            self.resumeFlag = False
             self.FlaDrop.setStyleSheet("QLineEdit {color: black; background-image : url(media/flaskEm2.png); background-repeat: no-repeat;background-position: 0% 0%;}")
 
             self.RESETDROP(self.FlaDrop, "Flask")
             self.RESETDROP(self.TitDrop, "Bur")
             self.start = False
-            self.loadKSCN.setEnabled(True)
-            self.LOADMARK = 0
-            self.movie.setValue(0)
-            self.timerTrials.start(100-self.volumeSpeed.value())
+            self.loadNAOH.setEnabled(True)
+            self.LOADMARK = -5000
+            self.movie.setValue(-5000)
+            self.timerTrials.stop()
             self.loadStop.setText("PAUSE")
             self.loadStart.setEnabled(True)
             self.loadStop.setEnabled(False)
@@ -545,6 +573,7 @@ class Exp3_class(QTabWidget):
     def RESETDROP(self, drop, name):
         drop.setCon(0)
         drop.setVol(0)
+        drop.setCol(0)
         drop.setName(name)
         drop.setText(name)
         
@@ -562,12 +591,10 @@ class Exp3_class(QTabWidget):
         try:
             if(self.loadStop.text() == "PAUSE"):
                 self.timerTrials.stop()
-                self.start = False
                 self.loadStop.setText("RESUME")
 
             else :
                 self.timerTrials.start(100-self.volumeSpeed.value())
-                self.start = True
                 self.loadStop.setText("PAUSE")
         except:
             self.UNKNOWNERROR = "Starting/Pausing the titration"
@@ -575,14 +602,10 @@ class Exp3_class(QTabWidget):
             
     def LoadHypo(self):
         try:
-            self.marker = self.volumeDown/100
-            if(self.LOADMARK == 0):
-                return
+            self.marker = 0
             self.movie.setValue(self.LOADMARK)
-            self.loadKSCN.setEnabled(False)
+            #self.loadNAOH.setEnabled(False)
             if(self.resumeFlag):
-                #print(self.marker)
-                self.Pause()
                 self.resumeFlag = False
         except:
             self.UNKNOWNERROR = "Refilling Burette"
@@ -593,9 +616,9 @@ class Exp3_class(QTabWidget):
             if(self.LoadedINFLASK and  self.burFlag):
                 if(self.loadKIFLAG):
                     
-                    self.volumeDown = (self.conFlask * self.volFlask)/self.burCon
-                    self.marker = self.volumeDown
-                    self.volumeDown = 100*self.volumeDown
+                    self.volumeDown = (100*self.conFlask)/self.burCon
+                    self.marker = 0
+                    self.volumeDown = int(self.volumeDown)
                     #print(self.volumeDown)
 
                     self.start = True    
@@ -614,33 +637,36 @@ class Exp3_class(QTabWidget):
         
     def hiddenTimer(self):
         try:
-            if self.start :
+            if self.start and self.resumeFlag == False:
                 
                 self.volumeDown -= 1
+                self.marker += 1
                 
-                if (self.volumeDown/100 <= 0.2 and self.volumeDown/100 >= -0.2):
+                if (self.volumeDown <= 20 and self.volumeDown >= -20):
                     self.FlaDrop.setStyleSheet("QLineEdit {color: black; background-image : url(media/flaskE2.png); background-repeat: no-repeat;background-position: 0% 0%;}")
 
-                elif(self.volumeDown/100 <= -0.2):
+                elif(self.volumeDown <= -20 and self.volumeDown >= -25):
                     self.FlaDrop.setStyleSheet("QLineEdit {color: black; background-image : url(media/flaskC2.png); background-repeat: no-repeat;background-position: 0% 0%;}")
 
             if self.start:
-                text = (self.volumeDown/100)
-                text = self.marker-text
-                self.movie.setValue(self.LOADMARK-text)
+                #text = (self.volumeDown/100)
+                self.movie.setValue(self.LOADMARK-self.marker)
+                self.volumeDisplay.setText(str(round(self.marker/100, 1)))
                 
-                if(self.LOADMARK-text <= 0.3):
+                if(self.LOADMARK-self.marker <= -4999):
                     self.timerTrials.stop()
-                    self.RESETDROP(self.TitDrop, "Bur")
-                    
-                    self.loadKSCN.setEnabled(True)
+                    #self.RESETDROP(self.TitDrop, "Bur")
+                    #print(self.volumeDown)
+                    self.loadStop.setText("RESUME")
+                    self.loadNAOH.setEnabled(True)
                     self.resumeFlag = True
                     self.errorFlag = 12
                     self.errorMessage()
                     
-                self.volumeDisplay.setText(str(round(text, 1)))
+                
             
-        except:
+        except Exception as e:
+            #print(e)
             self.UNKNOWNERROR = "Starting/Stoping Timer"
             self.errorMessage()
     def update(self):
@@ -742,7 +768,7 @@ class Exp3_class(QTabWidget):
             self.eacVol = 0
             self.retBut.setEnabled(False)
             self.FinX = 0
-            self.RESETDROP(self.RetFlask, " HCl ")
+            self.RESETDROP(self.RetFlask, "flask")
             self.RetFlask.setPixmap(QPixmap("media/empty2.png"))
             self.time = 3600
         except:
@@ -995,6 +1021,7 @@ class Exp3_class(QTabWidget):
         global hcl
         hcl = self.SolsTab.cellWidget(3, 1).con()
         self.SolsTab.cellWidget(1, 1).setText("~3N")
+        self.SolsTab.cellWidget(3, 1).setCol(1)
         self.SolsTab.cellWidget(2, 1).setValue(15)
 
         
@@ -1003,11 +1030,13 @@ class Exp3_class(QTabWidget):
         global naoh
         naoh = self.SolsTab.cellWidget(3, 2).con()
         self.SolsTab.cellWidget(1, 2).setText("~1N")
+        
         self.SolsTab.cellWidget(2, 2).setValue(50)
 
         self.SolsTab.cellWidget(3, 3).setCon(17.5)
         self.SolsTab.cellWidget(1, 3).setText("~17.5M")
         self.SolsTab.cellWidget(2, 3).setValue(5)
+        self.SolsTab.cellWidget(3, 3).setCol(1)
 
         self.SolsTab.cellWidget(3, 4).setCon(17.1)
         self.SolsTab.cellWidget(1, 4).setText("~17.1M")
@@ -1016,6 +1045,7 @@ class Exp3_class(QTabWidget):
         self.SolsTab.cellWidget(3, 5).setCon(0.3)
         self.SolsTab.cellWidget(1, 5).setText("0.3N")
         self.SolsTab.cellWidget(2, 5).setValue(30)
+        self.SolsTab.cellWidget(3, 5).setCol(1)
 
         self.SolsTab.cellWidget(3, 6).setCon(10.2)
         self.SolsTab.cellWidget(1, 6).setText("~10.2M")
@@ -1050,7 +1080,7 @@ class Exp3_class(QTabWidget):
         self.buttonLay = QVBoxLayout()
 
         
-        for i in [self.loadKSCN, self.loadStart, self.loadStop, self.loadRe]:
+        for i in [self.loadNAOH, self.loadStart, self.loadStop, self.loadRe]:
             self.buttonLay.addWidget(i)
 
         self.ButtonBox.setLayout(self.buttonLay)
@@ -1065,7 +1095,7 @@ class Exp3_class(QTabWidget):
         self.SPEEDLay.addWidget(self.SPEEDLAB)
         self.SPEEDBOX.setLayout(self.SPEEDLay)
             
-        for i, j in zip([self.loadKSCN, self.loadStop, self.volumeSpeedDis],
+        for i, j in zip([self.loadNAOH, self.loadStop, self.volumeSpeedDis],
                      [self.loadKI, self.loadStart, self.loadRe]):
             i.setFont(QFont('Times', 12))
             j.setFont(QFont('Times', 12))

@@ -292,7 +292,7 @@ class Exp2_class(QTabWidget):
         self.timerIodine = QTimer()
         self.timerIodine.timeout.connect(self.showTime)
         self.start = False
-        self.timerIodine.start(100)
+        self.timerIodine.start(1000)
         self.valueToDisplay = 0
 
         self.loadedFlag = False
@@ -465,25 +465,28 @@ class Exp2_class(QTabWidget):
         if(self.validateStock()):
             
             ace_wid = self.SolsTab.cellWidget(row,1)
-            ace = (float(self.stockSol_val.cellWidget(0,1).text())*(ace_wid.value()))/10
-            if(ace == 0 or ace > 10):
+            if(ace_wid.value() == 0 or ace_wid.value() > 10):
                 self.errorFlag = -2
                 self.errorMessage()
                 return
+            ace = (float(self.stockSol_val.cellWidget(0,1).text())*(ace_wid.value()))/10
+            
                 
             hcl_wid = self.SolsTab.cellWidget(row,2)
-            hcl = (float(self.stockSol_val.cellWidget(0,3).text())*(hcl_wid.value()))/10
-            if(hcl == 0 or hcl > 10):
+            if(hcl_wid.value() == 0 or hcl_wid.value() > 10):
                 self.errorFlag = -3
                 self.errorMessage()
                 return
+            hcl = (float(self.stockSol_val.cellWidget(0,3).text())*(hcl_wid.value()))/10
+            
             
             iod_wid = self.SolsTab.cellWidget(row,3)
-            iod = (float(self.stockSol_val.cellWidget(0,5).text())*(iod_wid.value()))/10
-            if(iod == 0 or iod > 10):
+            if(iod_wid.value() == 0 or iod_wid.value() > 10):
                 self.errorFlag = -4
                 self.errorMessage()
                 return
+            iod = (float(self.stockSol_val.cellWidget(0,5).text())*(iod_wid.value()))/10
+            
             if(iod + ace + hcl > 10):
                 self.errorFlag = 5
                 self.errorMessage()
