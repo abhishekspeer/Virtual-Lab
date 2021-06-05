@@ -12,7 +12,7 @@ from base64 import urlsafe_b64encode
 from email.mime.text import MIMEText
 
 credentials = {
-  "Service account details"
+"SERVICE ACCOUNT CREDS"
 }
 
 scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets', 
@@ -23,16 +23,17 @@ creds = ServiceAccountCredentials.from_json_keyfile_dict(credentials,scope)
 
 #creds = ServiceAccountCredentials.service_account_from_dict(credentials, scope)
 client = gspread.authorize(creds)
-try:
-        sheet = client.open("Creds_Vlab").sheet1
-except:
-        sheet = client.open("LOP Database").sheet1
+sheet = client.open("your sheet name").sheet1
+
+Folder_ID = [sheet.cell(2,1).value, sheet.cell(2,2).value, sheet.cell(2,3).value, sheet.cell(2,4).value, sheet.cell(2,5).value]
+
 def loginverify(username,password):
         try:
                 #data = sheet.get_all_records() 
                 userid=[]
                 usernameslist = sheet.col_values(2)
-        
+                #del usernameslist[0]
+                
                 k=0;
                 #cell = sheet.cell(4, 1).value 
                 for i in usernameslist  :
@@ -49,18 +50,18 @@ def loginverify(username,password):
                         return (1, getDetails(username, k), k)
                 else :
                         return (0, 0, 0)
-        except:
+        except :
                 return (0,0,0)
 
 def SUBMITDATA(username, exp, data, k):
         try:
-                EXP = client.open("LOP Database")
+                EXP = client.open("your sheet name")
                 temp = EXP.get_worksheet(exp)
-                if(temp.cell(k, 2).value == username):
+                if(temp.cell(k-3, 2).value == username):
                         
                         flag = 0
                         for i in data:
-                                temp.update_cell(k, 3+flag, str(i))
+                                temp.update_cell(k-3, 3+flag, str(i))
                                 flag+=1
                         return 1
                 else:
@@ -86,7 +87,7 @@ def fetchDetails(username):
                         k=k+1
                         if username == i:
                                 #print("in here")
-                                userid = [sheet.cell(k, 2).value, sheet.cell(k, 3).value]
+                                userid = [sheets.cell(k, 2), sheet.cell(k, 3).value, sheet.cell(k, 4).value]
                                 return userid
                 return None
         except:
@@ -94,9 +95,10 @@ def fetchDetails(username):
                         
                 
         
-def UPLOADONDRIVE2(DATA_Misc, dataGEN, dataIN, labels, folder_id="1FJDYxVhN3e5_bs2TFC9VlUzS3S3JuXhU"):
+def UPLOADONDRIVE2(DATA_Misc, dataGEN, dataIN, labels, folder_id= 0 ):
         try:
-                #print("Calling the authenticator")
+                if(Folder_ID[folder_id] == "" or Folder_ID[folder_id] == None):
+                    folder_id = 0
                 service = build('drive', 'v3', credentials=creds, static_discovery=False)        
                 
                 stringdata = str(DATA_Misc[0])+"\n\n"+str(DATA_Misc[2])+"\n"+str(DATA_Misc[1])
@@ -116,7 +118,7 @@ def UPLOADONDRIVE2(DATA_Misc, dataGEN, dataIN, labels, folder_id="1FJDYxVhN3e5_b
                 bio = BytesIO(stringdata.encode())
                 #print(bio)
                 file_meta = {"name": str(str(DATA_Misc[0])+"_"+str(DATA_Misc[1])+".txt"),
-                             "parents": [folder_id]}
+                             "parents": [Folder_ID[folder_id]]}
                 
                 media = MediaIoBaseUpload(bio, mimetype='text/plain',
                                           resumable=True)
