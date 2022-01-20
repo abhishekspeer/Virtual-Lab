@@ -5,13 +5,22 @@ import os
 import qdarkstyle
 import sheets
 import smtplib
-
+#Old
 x = 0
 user_dets = []
 k = 0
 print("ALL MODULES IMPORTED")
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        exe = sheets.Initialize()
+        if(exe == 0):
+            self.w = QMessageBox()
+            self.w.setText("Failed to Login")
+            self.w.setInformativeText("Unable to obtain token")
+            self.w.setWindowTitle("Error")
+            self.w.exec()
+            exit(1)
+        
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
         MainWindow.resize(821, 555)
@@ -50,6 +59,7 @@ class Ui_MainWindow(object):
         self.textEdit.setObjectName("textEdit")
         self.textEdit_2 = QLineEdit(self.centralwidget)
         self.textEdit_2.setGeometry(QtCore.QRect(330, 400, 191, 27))
+        self.textEdit_2.setEchoMode(QLineEdit.Password)
         #self.successLab = QtWidgets.QLabel(self.centralwidget)
         #self.successLab.setGeometry(QtCore.QRect(329, 434, 191, 26))
         font = QtGui.QFont('Times', 12)
@@ -204,16 +214,16 @@ class ForgotpasswordForm(QWidget):
             if(user_details == None):
                 #print("No details")
                 msg = QMessageBox()
-                msg.setWindowTitle("User Not found")
+                msg.setWindowTitle("Invalid")
                 msg.setText("User Not Found")
-                msg.setInformativeText("Provide valid Email address.")
+                msg.setInformativeText("Provide valid UserID.")
                 msg.setIcon(QMessageBox.Critical)
                 msg.exec_()
                 return
 
             else:
                 sender='vlab.noreply@gmail.com'
-                password='PASSWORD'
+                password='pssword'
                 smtpserver=smtplib.SMTP("smtp.gmail.com",587)
                 smtpserver.ehlo()
                 smtpserver.starttls()
@@ -249,7 +259,7 @@ if __name__ == "__main__":
     MainWindow.show()
     app.exec_()
     if(x == 1):
-        import testVlab
-        testVlab.main(1, user_dets, k, sheets)
+        import DashBoard
+        DashBoard.main(1, user_dets, k, sheets)
         print("returned to main script. Report a Bug")
         sys.exit(1)
